@@ -1,5 +1,6 @@
 :root{
-  --bg-color: #121f3d;
+  --bg-color: white;
+  --text-color:#121f3d;
 }
 
 *{
@@ -15,7 +16,7 @@ html{
 body{
   background-color: var(--bg-color);
   font-family: 'Roboto', sans-serif;
-  color: white;
+  color: var(--text-color);
 }
 
 header{
@@ -43,7 +44,7 @@ button:hover{
   background-color: transparent;
   border: 1px solid gray;
   border-radius: 10px;
-  color: white;
+  color: var(--text-color);
 }
 
 main{
@@ -60,8 +61,10 @@ main{
 
 .hero--title{
   font-size: 2.6rem;
+  margin-bottom: 5px;
 }
 
 .hero--time{
   font-size: 2rem;
+  margin-bottom: 10px;
 }
