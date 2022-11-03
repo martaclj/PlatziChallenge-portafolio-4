@@ -28,17 +28,18 @@ button:hover{
   cursor: pointer;
 }
 
+
 .header--list{
   display: flex;
   width: 100%;
-  justify-content: space-between;
+  justify-content:space-around;
   list-style: none;
   padding: 10px;
 }
 
 .header--button{
-  width: 200%;
-  height: 50px;
+  width: 400%;
+  height: 60px;
   background-color: transparent;
   border: 1px solid gray;
   border-radius: 10px;
@@ -49,7 +50,7 @@ main{
   width: 100%;
   position: absolute;
   top: 50%;
-  transform: translateY(25%);
+  transform: translateY(5%);
 }
 
 .hero{

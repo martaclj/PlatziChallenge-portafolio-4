@@ -3,8 +3,11 @@ const minutesSpan = document.querySelector("#minutes");
 let secondsValue = 0;
 let minutesValue = 0;
 let currentChronometer;
+let currentButton;
 
 function startChronometer(){
+  currentButton = event.target;
+  currentButton.disabled = true;
   currentChronometer = setInterval(() => {
     secondsValue += 1;
     if(secondsValue === 60){
@@ -21,6 +24,7 @@ function formatValue(value){
 }
 
 function stopChronometer(){
+  currentButton.disabled = false;
   clearInterval(currentChronometer);
 }
 
