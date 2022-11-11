@@ -1,10 +1,10 @@
-const secondsSpan = document.querySelector("#seconds");
-const minutesSpan = document.querySelector("#minutes");
+let secondsSpan = document.querySelector("#seconds");
+let minutesSpan = document.querySelector("#minutes");
 const timerButton = document.querySelector("#timmer--button");
 const hero = document.querySelector("#principal");
 let secondsValue = 0;
 let minutesValue = 0;
-let currentChronometer;
+let currentInterval;
 let currentButton;
 
 function startChronometer(){
@@ -39,6 +39,36 @@ function resetChronometer(){
   minutesSpan.textContent = "00";
 }
 
+function startTimer(){
+  event.preventDefault();
+  const minutes = parseInt(event.target.minutes.value);
+  const seconds = parseInt(event.target.seconds.value);
+  
+  minutesSpan.textContent = minutes;
+  secondsSpan.textContent = seconds;
+  secondsValue = seconds;
+  minutesValue = minutes;
+
+  currentInterval = setInterval(() => {
+    secondsValue -= 1
+    if(secondsValue === -1) {
+      secondsValue = 59;
+      minutesValue -= 1;
+    }
+
+    if(minutesValue === 0 && secondsValue === 0){
+      const container = document.querySelector(".hero--time");
+      const title = document.createElement("h2")
+      title.textContent = "El timer ha terminado";
+      container.appendChild(title);
+      clearInterval(currentInterval)
+    }
+
+    minutesSpan.textContent = formatValue(minutesValue);
+    secondsSpan.textContent = formatValue(secondsValue);
+  },1000);
+}
+
 function executeTimer(){
   hero.innerHTML = `
   <h1 class=hero--title>Timer</h1>
@@ -46,9 +76,13 @@ function executeTimer(){
     <p id="time"><span id="minutes">00</span>:<span id="seconds">00</span></p>
   </div>
   <div class="hero--buttons">
-    <button onclick="startChronometer()" class="button hero--button" type="button">Start</button>
-    <button onclick="stopChronometer()" class="button hero--button" type="button">Stop</button>
-    <button onclick="resetChronometer()" class="button hero--button" type="button">Reset</button>
+    <form onsubmit="startTimer()">
+      <input type="number" placeholder="Escribe los minutos" id="minutesInput" name="minutes" >
+      <input type="number" placeholder="Escribe los segundos" id="secondsInput" name="seconds" >
+      <button type="submit">Start</button>
+    </form>
   </div>
-  `
+  `;
+  secondsSpan = document.querySelector("#seconds");
+  minutesSpan = document.querySelector("#minutes");
 }
