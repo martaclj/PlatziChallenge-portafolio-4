@@ -39,6 +39,61 @@ function resetChronometer(){
   minutesSpan.textContent = "00";
 }
 
+function executeTimer(){
+  hero.innerHTML = `
+  <h1 class=hero--title>Timer</h1>
+  <div class="hero--time">
+    <p id="time"><span id="minutes">00</span>:<span id="seconds">00</span></p>
+  </div>
+  <div class="hero--buttons">
+    <form onsubmit="startTimer()">
+      <input type="number" placeholder="Escribe los minutos" id="minutesInput" name="minutes" >
+      <input type="number" placeholder="Escribe los segundos" id="secondsInput" name="seconds" >
+      <button type="submit">Start</button>
+    </form>
+  </div>
+  `;
+  secondsSpan = document.querySelector("#seconds");
+  minutesSpan = document.querySelector("#minutes");
+}
+
+function executePomodoro() {
+  hero.innerHTML = `
+  <h1 class=hero--title>Pomodoro</h1>
+  <div class="hero--time">
+    <p id="time"><span id="minutes">25</span>:<span id="seconds">00</span></p>
+  </div>
+  <div class="hero--buttons">
+    <button type="button" onclick="startPomodoro()">Start</button>
+  </div>
+  `;
+  secondsSpan = document.querySelector("#seconds");
+  minutesSpan = document.querySelector("#minutes");
+}
+
+function startPomodoro() {
+  secondsValue = 0;
+  minutesValue = 25;
+
+  currentInterval = setInterval(() => {
+    secondsValue -= 1
+    if(secondsValue === -1) {
+      secondsValue = 59;
+      minutesValue -= 1;
+    }
+
+    if(minutesValue === 0 && secondsValue === 0){
+      const container = document.querySelector(".hero--time");
+      const title = document.createElement("h2")
+      title.textContent = "El pomodoro ha terminado";
+      container.appendChild(title);
+      clearInterval(currentInterval)
+    }
+    minutesSpan.textContent = formatValue(minutesValue);
+    secondsSpan.textContent = formatValue(secondsValue);
+  }, 1000);
+};
+
 function startTimer(){
   event.preventDefault();
   const minutes = parseInt(event.target.minutes.value);
@@ -69,20 +124,19 @@ function startTimer(){
   },1000);
 }
 
-function executeTimer(){
+function executeChronometer(){
   hero.innerHTML = `
-  <h1 class=hero--title>Timer</h1>
+  <h1 class=hero--title>Chronometer</h1>
   <div class="hero--time">
     <p id="time"><span id="minutes">00</span>:<span id="seconds">00</span></p>
   </div>
   <div class="hero--buttons">
-    <form onsubmit="startTimer()">
-      <input type="number" placeholder="Escribe los minutos" id="minutesInput" name="minutes" >
-      <input type="number" placeholder="Escribe los segundos" id="secondsInput" name="seconds" >
-      <button type="submit">Start</button>
-    </form>
+    <button onclick="startChronometer()" class="button hero--button" type="button">Start</button>
+    <button onclick="stopChronometer()" class="button hero--button" type="button">Stop</button>
+    <button onclick="resetChronometer()" class="button hero--button" type="button">Reset</button>
   </div>
   `;
+
   secondsSpan = document.querySelector("#seconds");
   minutesSpan = document.querySelector("#minutes");
 }
